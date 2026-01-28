@@ -566,7 +566,7 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
       <button
         ref={buttonRef}
         type="button"
-        className={classNames.button}
+        className={`a11y-widget-button ${classNames.button || ''}`}
         style={buttonStyle}
         onClick={() => (isOpen ? handleClose() : handleOpen())}
         onMouseEnter={() => setButtonHovered(true)}
@@ -583,7 +583,7 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
       {isOpen && (
         <>
           <div
-            className={classNames.overlay}
+            className={`a11y-widget-overlay ${classNames.overlay || ''}`}
             style={overlayStyle}
             onClick={handleClose}
             aria-hidden="true"
@@ -594,7 +594,7 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
             role="dialog"
             aria-modal="true"
             aria-label={translations.title}
-            className={classNames.panel}
+            className={`a11y-widget-panel ${classNames.panel || ''}`}
             style={panelStyle}
           >
             <div className={classNames.panelHeader} style={headerStyle}>
