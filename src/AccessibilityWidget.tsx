@@ -205,8 +205,6 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
     backdropFilter: 'blur(4px)',
     WebkitBackdropFilter: 'blur(4px)',
     zIndex: zIndex - 1,
-    opacity: isOpen ? 1 : 0,
-    transition: 'opacity 0.3s ease',
     ...styles.overlay,
   };
 
@@ -222,9 +220,6 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
     zIndex,
     overflow: 'hidden',
     direction: dir,
-    opacity: isOpen ? 1 : 0,
-    transform: isOpen ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)',
-    transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
     border: '1px solid rgba(255, 255, 255, 0.8)',
     ...styles.panel,
   };
@@ -286,7 +281,6 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    transition: 'all 0.2s ease',
     position: 'relative',
     zIndex: 1,
     backdropFilter: 'blur(10px)',
@@ -309,8 +303,6 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
     borderRadius: 16,
     padding: '18px 20px',
     marginBottom: 12,
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    transform: hoveredItem === key ? 'translateX(4px)' : 'translateX(0)',
     boxShadow: hoveredItem === key
       ? `0 4px 12px ${primaryColor}15, 0 2px 4px rgba(0, 0, 0, 0.05)`
       : '0 1px 3px rgba(0, 0, 0, 0.04)',
@@ -385,7 +377,6 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    transition: 'all 0.2s ease',
     boxShadow: disabled ? 'none' : `0 2px 8px ${primaryColor}30`,
     opacity: disabled ? 0.5 : 1,
     ...styles.controlButton,
@@ -423,7 +414,6 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
     backgroundColor: checked
       ? primaryColor
       : '#e2e8f0',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
     borderRadius: 30,
     boxShadow: checked
       ? `inset 0 2px 4px ${darkenColor(primaryColor, 20)}40, 0 2px 8px ${primaryColor}30`
@@ -438,7 +428,6 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
     left: checked ? 28 : 3,
     bottom: 3,
     backgroundColor: 'white',
-    transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
     borderRadius: '50%',
     boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.1)',
     ...styles.toggleThumb,
@@ -479,7 +468,6 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
     justifyContent: 'center',
     gap: 10,
     marginTop: 16,
-    transition: 'all 0.3s ease',
     boxShadow: '0 2px 8px rgba(220, 38, 38, 0.1)',
     ...styles.resetButton,
   };
@@ -618,14 +606,6 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
                 style={closeButtonStyle}
                 onClick={handleClose}
                 aria-label={translations.close}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.25)';
-                  e.currentTarget.style.transform = 'scale(1.05)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)';
-                  e.currentTarget.style.transform = 'scale(1)';
-                }}
               >
                 <CloseIcon size={20} />
               </button>
@@ -669,16 +649,6 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
                 style={resetButtonStyle}
                 onClick={resetSettings}
                 className={classNames.resetButton}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'linear-gradient(145deg, #fee2e2 0%, #fecaca 100%)';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(220, 38, 38, 0.2)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'linear-gradient(145deg, #fef2f2 0%, #fee2e2 100%)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(220, 38, 38, 0.1)';
-                }}
               >
                 <ResetIcon size={20} />
                 {translations.reset}
