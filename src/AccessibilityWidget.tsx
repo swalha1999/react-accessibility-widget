@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useId } from 'react';
+import { createPortal } from 'react-dom';
 import type { CSSProperties } from 'react';
 import type { AccessibilityWidgetProps } from './types';
 import { useAccessibilitySettings, useReadingGuide, useBackgroundContrast } from './hooks';
@@ -17,6 +18,18 @@ import {
   CloseIcon,
 } from './icons';
 
+// Get or create portal container
+const getPortalContainer = (): HTMLElement => {
+  const PORTAL_ID = 'a11y-widget-portal';
+  let container = document.getElementById(PORTAL_ID);
+  if (!container) {
+    container = document.createElement('div');
+    container.id = PORTAL_ID;
+    document.body.appendChild(container);
+  }
+  return container;
+};
+
 export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
   translations,
   dir = 'ltr',
@@ -33,9 +46,15 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
   buttonAriaLabel,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const uniqueId = useId();
+
+  // Initialize portal container on mount
+  useEffect(() => {
+    setPortalContainer(getPortalContainer());
+  }, []);
 
   const isDarkBackground = useBackgroundContrast(buttonRef);
 
@@ -396,6 +415,11 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
 
   const panelId = `a11y-panel-${uniqueId}`;
 
+  // Don't render until portal container is available
+  if (!portalContainer) {
+    return null;
+  }
+
   // Render toggle item
   const renderToggleItem = (
     key: keyof typeof settings,
@@ -478,7 +502,7 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
     </div>
   );
 
-  return (
+  return createPortal(
     <>
       {/* Floating Button */}
       <button
@@ -571,6 +595,7 @@ export const AccessibilityWidget: React.FC<AccessibilityWidgetProps> = ({
           </div>
         </>
       )}
-    </>
+    </>,
+    portalContainer
   );
 };

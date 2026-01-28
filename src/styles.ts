@@ -30,36 +30,22 @@ export function injectAccessibilityStyles(): void {
       letter-spacing: var(--a11y-letter-spacing, normal) !important;
     }
 
-    /* Invert colors */
-    body.a11y-invert {
+    /* Invert colors - applied to content wrapper */
+    #a11y-content-wrapper.a11y-invert {
       filter: invert(1) hue-rotate(180deg);
     }
 
-    body.a11y-invert img:not(.a11y-widget-icon),
-    body.a11y-invert video,
-    body.a11y-invert [style*="background-image"]:not(.a11y-widget-button):not(.a11y-widget-panel),
-    body.a11y-invert canvas,
-    body.a11y-invert svg:not(.a11y-widget-icon) {
+    #a11y-content-wrapper.a11y-invert img:not(.a11y-widget-icon),
+    #a11y-content-wrapper.a11y-invert video,
+    #a11y-content-wrapper.a11y-invert [style*="background-image"],
+    #a11y-content-wrapper.a11y-invert canvas,
+    #a11y-content-wrapper.a11y-invert svg:not(.a11y-widget-icon) {
       filter: invert(1) hue-rotate(180deg);
     }
 
-    /* Protect the accessibility widget from inversion */
-    body.a11y-invert .a11y-widget-button,
-    body.a11y-invert .a11y-widget-panel,
-    body.a11y-invert .a11y-widget-overlay {
-      filter: invert(1) hue-rotate(180deg);
-    }
-
-    /* Grayscale */
-    body.a11y-grayscale {
+    /* Grayscale - applied to content wrapper */
+    #a11y-content-wrapper.a11y-grayscale {
       filter: grayscale(100%);
-    }
-
-    /* Protect the accessibility widget from grayscale */
-    body.a11y-grayscale .a11y-widget-button,
-    body.a11y-grayscale .a11y-widget-panel,
-    body.a11y-grayscale .a11y-widget-overlay {
-      filter: grayscale(0%);
     }
 
     /* Underline links */
@@ -123,36 +109,22 @@ body.a11y-letter-spacing-active *:not([class*="a11y-widget"]) {
   letter-spacing: var(--a11y-letter-spacing, normal) !important;
 }
 
-/* Invert colors */
-body.a11y-invert {
+/* Invert colors - applied to content wrapper */
+#a11y-content-wrapper.a11y-invert {
   filter: invert(1) hue-rotate(180deg);
 }
 
-body.a11y-invert img:not(.a11y-widget-icon),
-body.a11y-invert video,
-body.a11y-invert [style*="background-image"]:not(.a11y-widget-button):not(.a11y-widget-panel),
-body.a11y-invert canvas,
-body.a11y-invert svg:not(.a11y-widget-icon) {
+#a11y-content-wrapper.a11y-invert img:not(.a11y-widget-icon),
+#a11y-content-wrapper.a11y-invert video,
+#a11y-content-wrapper.a11y-invert [style*="background-image"],
+#a11y-content-wrapper.a11y-invert canvas,
+#a11y-content-wrapper.a11y-invert svg:not(.a11y-widget-icon) {
   filter: invert(1) hue-rotate(180deg);
 }
 
-/* Protect the accessibility widget from inversion */
-body.a11y-invert .a11y-widget-button,
-body.a11y-invert .a11y-widget-panel,
-body.a11y-invert .a11y-widget-overlay {
-  filter: invert(1) hue-rotate(180deg);
-}
-
-/* Grayscale */
-body.a11y-grayscale {
+/* Grayscale - applied to content wrapper */
+#a11y-content-wrapper.a11y-grayscale {
   filter: grayscale(100%);
-}
-
-/* Protect the accessibility widget from grayscale */
-body.a11y-grayscale .a11y-widget-button,
-body.a11y-grayscale .a11y-widget-panel,
-body.a11y-grayscale .a11y-widget-overlay {
-  filter: grayscale(0%);
 }
 
 /* Underline links */

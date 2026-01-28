@@ -60,6 +60,26 @@ export function useAccessibilitySettings({
     const root = document.documentElement;
     const body = document.body;
 
+    const WRAPPER_ID = 'a11y-content-wrapper';
+    const PORTAL_ID = 'a11y-widget-portal';
+
+    // Create content wrapper on mount if it doesn't exist
+    let wrapper = document.getElementById(WRAPPER_ID);
+    if (!wrapper) {
+      wrapper = document.createElement('div');
+      wrapper.id = WRAPPER_ID;
+      wrapper.style.minHeight = '100%';
+
+      // Move all body children except portal and wrapper into wrapper
+      const children = Array.from(body.children);
+      children.forEach((child) => {
+        if (child.id !== PORTAL_ID && child.id !== WRAPPER_ID) {
+          wrapper!.appendChild(child);
+        }
+      });
+      body.insertBefore(wrapper, body.firstChild);
+    }
+
     // Text size
     const textScale = 1 + settings.textSize * 0.05;
     root.style.setProperty('--a11y-text-scale', String(textScale));
@@ -75,9 +95,11 @@ export function useAccessibilitySettings({
     root.style.setProperty('--a11y-letter-spacing', `${letterSpacing}em`);
     body.classList.toggle('a11y-letter-spacing-active', settings.letterSpacing !== 0);
 
-    // Toggle classes
-    body.classList.toggle('a11y-invert', settings.invertColors);
-    body.classList.toggle('a11y-grayscale', settings.grayscale);
+    // Apply filter classes to wrapper instead of body
+    wrapper.classList.toggle('a11y-invert', settings.invertColors);
+    wrapper.classList.toggle('a11y-grayscale', settings.grayscale);
+
+    // Keep non-filter classes on body
     body.classList.toggle('a11y-underline-links', settings.underlineLinks);
     body.classList.toggle('a11y-big-cursor', settings.bigCursor);
     body.classList.toggle('a11y-reading-guide', settings.readingGuide);
@@ -92,13 +114,14 @@ export function useAccessibilitySettings({
         'a11y-text-scaled',
         'a11y-line-height-active',
         'a11y-letter-spacing-active',
-        'a11y-invert',
-        'a11y-grayscale',
         'a11y-underline-links',
         'a11y-big-cursor',
         'a11y-reading-guide',
         'a11y-hide-images'
       );
+      if (wrapper) {
+        wrapper.classList.remove('a11y-invert', 'a11y-grayscale');
+      }
     };
   }, [settings]);
 
